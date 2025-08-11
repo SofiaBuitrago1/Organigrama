@@ -23,8 +23,8 @@ const obtenerEstiloConBorde = (nivel: number) => {
     fontWeight: "bold",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    minWidth: "320px",
-    maxWidth: "420px",
+    minWidth: "280px",
+    maxWidth: "380px",
     textAlign: "center", // Se asegura de que sea 'center' | 'left' | 'right'
     marginBottom: "8px",
     fontSize: "14px",
@@ -262,8 +262,8 @@ export default function Organigrama() {
       fontWeight: "bold",
       cursor: "pointer",
       transition: "all 0.3s ease",
-      minWidth: "320px",  // Ampliado el ancho mínimo de la caja
-      maxWidth: "420x",  // Ampliado el ancho máximo
+      minWidth: "280px",  // Ampliado el ancho mínimo de la caja
+      maxWidth: "380x",  // Ampliado el ancho máximo
       textAlign: "center", // Centrado del texto
       marginBottom: "0.5rem",  // Usa rem
       fontSize: "1rem",  // Usa rem
