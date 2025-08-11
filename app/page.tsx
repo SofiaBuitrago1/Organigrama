@@ -339,15 +339,15 @@ const renderNodoCompacto = (nodo: Nodo) => {
   const estiloNodo = {
     background: fondo,
     color: "#000000",
-    padding: "8px 12px",
-    borderRadius: "8px",
+    padding: "0.5rem 0.75rem",  // Usa rem en lugar de px
+    borderRadius: "0.5rem",  // Usa rem
     boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
     fontWeight: "bold",
     cursor: "pointer",
     transition: "all 0.3s ease",
-    fontSize: "14px",
+    fontSize: "1rem",  // Usa rem
     fontFamily: "Arial, sans-serif",
-    marginBottom: "6px",
+    marginBottom: "0.5rem",  // Usa rem
     textAlign: "center" as "center" | "left" | "right",  // Corregido: especificamos los valores posibles
   };
 
