@@ -255,8 +255,8 @@ export default function Organigrama() {
     const fondo = obtenerColorPorNivel(nodo.nivel);
     const estiloNodo = {
       background: fondo,
-      padding: "8px 12px",  // Reducido el padding
-      borderRadius: "8px", // Bordes más redondeados
+      padding: "0.5rem 0.75rem",  // Usa rem en lugar de px
+      borderRadius: "0.5rem",  // Usa rem
       boxShadow: "0 4px 6px rgba(0,0,0,0.2)", // Sombra ligera para destacar
       color: "#000",  // Texto en negro
       fontWeight: "bold",
@@ -265,8 +265,8 @@ export default function Organigrama() {
       minWidth: "320px",  // Ampliado el ancho mínimo de la caja
       maxWidth: "420x",  // Ampliado el ancho máximo
       textAlign: "center", // Centrado del texto
-      marginBottom: "8px", // Reducir espacio entre las cajas
-      fontSize: "14px", // Reducir tamaño de la fuente
+      marginBottom: "0.5rem",  // Usa rem
+      fontSize: "1rem",  // Usa rem
       whiteSpace: "normal",
       wordBreak: "break-word",
 
