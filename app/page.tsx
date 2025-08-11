@@ -4,18 +4,17 @@ import React, { useEffect, useState } from "react";
 
 const obtenerColorPorNivel = (nivel: number) => {
   switch (nivel) {
-    case 0: return "#FFD700"; // Dorado - Jefe máximo
-    case 1: return "#FF9800"; // Naranja fuerte - Nivel inferior
+    case 0: return "#FFD700"; // Dorado - Jefe máximo
+    case 1: return "#FFEB3B"; // Amarillo - Jefes intermedios
     case 2: return "#FFB74D"; // Naranja vibrante - Subordinados
-    case 3: return "#F5F5F5"; // Neutro
-    default: return "#FFEB3B"; // Amarillo - Jefes intermedios
-
+    case 3: return "#FF9800"; // Naranja fuerte - Nivel inferior
+    default: return "#F5F5F5"; // Neutro
 
   }
 };
 
 const obtenerEstiloConBorde = (nivel: number) => {
-  const baseStyle = {
+  const baseStyle: React.CSSProperties = {
     background: obtenerColorPorNivel(nivel),
     padding: "8px 12px",
     borderRadius: "8px",
@@ -26,11 +25,11 @@ const obtenerEstiloConBorde = (nivel: number) => {
     transition: "all 0.3s ease",
     minWidth: "320px",
     maxWidth: "420px",
-    textAlign: "center",
+    textAlign: "center", // Se asegura de que sea 'center' | 'left' | 'right'
     marginBottom: "8px",
     fontSize: "14px",
     whiteSpace: "normal",
-    wordBreak: "break-word",
+    wordBreak: "break-word", // Se asegura de que sea 'break-word' | 'normal' | 'keep-all'
     fontFamily: "Arial, sans-serif",
   };
 
@@ -59,6 +58,7 @@ interface Nodo {
   hijos: Nodo[];
   salario: number;
   totalSubordinados: number;
+  nivel: number; // Se agregó 'nivel' como propiedad
 }
 
 export default function Organigrama() {
@@ -127,6 +127,7 @@ export default function Organigrama() {
           hijos: [],
           salario: 0,
           totalSubordinados: 0,
+          nivel, // 👈 Aquí asignas el nivel
         };
       }
 
@@ -149,6 +150,7 @@ export default function Organigrama() {
           hijos: [],
           salario: 0,
           totalSubordinados: 0,
+          nivel, // 👈 Aquí también
         };
       }
 
@@ -179,7 +181,7 @@ export default function Organigrama() {
       const hijosAgrupados = Object.entries(empleadosPorCargo).map(
         ([cargo, grupo]) => {
           const hijos = grupo.map((emp) =>
-            construirJerarquiaPorLinea(emp.codigo, linea)
+            construirJerarquiaPorLinea(emp.codigo, linea, new Set(), 1) // Asegúrate de pasar `nivel)
           );
 
           return {
@@ -188,6 +190,7 @@ export default function Organigrama() {
             hijos,
             salario: grupo.reduce((acc, e) => acc + e.salario, 0),
             totalSubordinados: grupo.length,
+            nivel: 1, // Asegúrate de asignar un valor para `nivel
           };
         }
       );
@@ -201,6 +204,7 @@ export default function Organigrama() {
         hijos: hijosAgrupados,
         salario: empleadosLinea.reduce((acc, e) => acc + e.salario, 0),
         totalSubordinados: empleadosLinea.length,
+        nivel: 0, // Este es el nivel para el nodo raíz, normalmente 0
       };
     };
 
@@ -225,6 +229,7 @@ export default function Organigrama() {
       hijos: hijosPorLinea,
       salario: empleadosConLinea.reduce((acc, e) => acc + e.salario, 0),
       totalSubordinados: empleadosConLinea.length,
+      nivel: 0, // Aquí también debes asignar el nivel para el nodo raíz
     };
 
     setEstructura(nodoRaiz);
@@ -343,7 +348,7 @@ const renderNodoCompacto = (nodo: Nodo) => {
     fontSize: "14px",
     fontFamily: "Arial, sans-serif",
     marginBottom: "6px",
-    textAlign: "center",
+    textAlign: "center" as "center" | "left" | "right",  // Corregido: especificamos los valores posibles
   };
 
   return (
