@@ -295,7 +295,7 @@ export default function Organigrama() {
           style={{
             ...filaInnerBase,
             transform: `scale(${scale})`,
-            transformOrigin: "top center",
+            transformOrigin: "top left", 
           }}
         >
           {estructura.hijos.map((lineaNodo) => (
