@@ -59,6 +59,7 @@ interface Nodo {
 const filaOuter: React.CSSProperties = {
   width: "100%",
   overflowX: "hidden",        // no scroll: siempre entra por escala
+  padding: "0 4px",      // pequeño colchón para sombras y borde
 };
 
 const filaInnerBase: React.CSSProperties = {
@@ -219,15 +220,23 @@ export default function Organigrama() {
     const outer = filaRef.current.parentElement as HTMLElement;
     if (!outer) return;
 
-    // Restablece escala a 1 para medir en "tamaño real"
-    filaRef.current.style.transform = "scale(1)";
-    const contentWidth = filaRef.current.scrollWidth;       // ancho real de todas las cajas
-    const available = outer.clientWidth - 8;                // ancho disponible (con pequeño margen)
-    const next = Math.min(1, available / contentWidth);     // 0..1
-    setScale(next);
-    // aplica inmediatamente para evitar "parpadeo"
-    filaRef.current.style.transform = `scale(${next})`;
-  };
+    // mide en tamaño real
+  filaRef.current.style.transform = "scale(1)";
+  const contentWidth = filaRef.current.scrollWidth;   // ancho real de TODAS las cajas
+  const available = outer.clientWidth - 8;            // ancho disponible (pequeño margen)
+
+  // escala 0..1
+  const next = Math.min(1, available / contentWidth);
+
+  // calcula desplazamiento para centrar la fila ya escalada
+  const scaled = contentWidth * next;
+  const offset = Math.max(0, (available - scaled) / 2);
+
+  // aplica: primero mover, luego escalar, origen arriba-izquierda
+  filaRef.current.style.transformOrigin = "top left";
+  filaRef.current.style.transform = `translateX(${offset}px) scale(${next})`;
+  setScale(next);
+};
 
   useEffect(() => {
     recalcularEscala();
